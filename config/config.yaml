@@ -1,0 +1,19 @@
+server:
+  port: "8080"
+
+database:
+  host: "localhost"
+  port: 5432
+  user: "postgres"
+  password: "password"
+  dbname: "payment_db"
+  sslmode: "disable"
+
+kafka:
+  brokers: ["localhost:9092"]
+  topic: "transaction-events"
+  group_id: "payment-group"
+
+logger:
+  level: "info"
+  file: "logs/log.log"
