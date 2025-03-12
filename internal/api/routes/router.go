@@ -1,7 +1,7 @@
 package routes
 
 import (
-	"go-payment-system/internal/handlers"
+	"go-payment-system/internal/api/handlers"
 
 	"github.com/gofiber/fiber/v2"
 )

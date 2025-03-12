@@ -55,46 +55,58 @@ CREATE TABLE transaction_logs (
 
 
 
+
 ```
 go-payment-system
 ├─ README.md
 ├─ cmd
-│  └─ main.go
+│  ├─ consumer
+│  │  └─ main.go
+│  └─ service
+│     └─ main.go
 ├─ config
 │  ├─ config.go
 │  └─ config.yaml
 ├─ deploy
+│  ├─ Dockerfile.consumer
+│  ├─ Dockerfile.service
 │  ├─ docker-compose.yml
 │  └─ k8s.yaml
 ├─ go.mod
+├─ go.sum
 ├─ internal
+│  ├─ api
+│  │  ├─ handlers
+│  │  │  └─ transaction_handler.go
+│  │  ├─ models
+│  │  │  └─ transaction.go
+│  │  ├─ routes
+│  │  │  └─ router.go
+│  │  └─ services
+│  │     └─ transaction_service.go
 │  ├─ consumers
-│  │  ├─ transaction_consumer.go
-│  │  └─ withdrawal_consumer.go
-│  ├─ handlers
-│  │  ├─ transaction_handler.go
-│  │  └─ withdrawal_handler.go
-│  ├─ models
-│  │  ├─ transaction.go
-│  │  └─ withdrawal.go
-│  ├─ producers
-│  │  ├─ transaction_producer.go
-│  │  └─ withdrawal_producer.go
-│  ├─ repository
-│  │  ├─ transaction_repository.go
-│  │  └─ withdrawal_repository.go
-│  ├─ routes
-│  │  └─ router.go
-│  └─ services
-│     ├─ transaction_service.go
-│     └─ withdrawal_service.go
+│  │  ├─ handlers
+│  │  │  └─ transaction_handler.go
+│  │  ├─ models
+│  │  │  └─ transaction.go
+│  │  └─ services
+│  │     └─ transaction_service.go
+│  └─ repository
+│     ├─ models
+│     │  ├─ account.go
+│     │  ├─ transaction.go
+│     │  ├─ user.go
+│     │  └─ withdrawal.go
+│     └─ transaction_repository.go
 └─ pkg
    ├─ database
    │  └─ postgres.go
    ├─ kafka
    │  ├─ consumer.go
    │  └─ producer.go
-   └─ logger
-      └─ logger.go
+   ├─ logger
+   │  └─ logger.go
+   ├─ middleware
+   └─ utils
 
 ```

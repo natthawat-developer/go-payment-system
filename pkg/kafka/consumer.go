@@ -2,6 +2,7 @@ package kafka
 
 import (
 	"log"
+	"time"
 
 	"github.com/confluentinc/confluent-kafka-go/kafka"
 )
@@ -34,6 +35,14 @@ func NewConsumer(config *ConsumerConfig) (*KafkaConsumer, error) {
 	return &KafkaConsumer{Consumer: consumer}, nil
 }
 
+func (kc *KafkaConsumer) SubscribeTopics(topics []string, rebalanceCb kafka.RebalanceCb) error {
+	return kc.Consumer.SubscribeTopics(topics, rebalanceCb)
+}
+
+// ReadMessage reads messages from Kafka
+func (kc *KafkaConsumer) ReadMessage(timeoutMs int) (*kafka.Message, error) {
+	return kc.Consumer.ReadMessage(time.Duration(timeoutMs) * time.Millisecond)
+}
 // Close shuts down the Kafka consumer
 func (kc *KafkaConsumer) Close() {
 	if kc.Consumer != nil {

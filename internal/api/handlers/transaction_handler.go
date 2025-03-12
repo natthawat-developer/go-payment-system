@@ -1,8 +1,8 @@
 package handlers
 
 import (
-	"go-payment-system/internal/services"
-	handlers_models "go-payment-system/internal/handlers/models"
+	"go-payment-system/internal/api/services"
+	 "go-payment-system/internal/api/models"
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -17,7 +17,7 @@ func NewTransactionHandler(service *services.TransactionService) *TransactionHan
 }
 
 func (h *TransactionHandler) CreateTransfer(c *fiber.Ctx) error {
-	var request handlers_models.TransferRequest
+	var request models.TransferRequest
 	if err := c.BodyParser(&request); err != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Invalid input"})
 	}

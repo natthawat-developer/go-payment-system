@@ -6,7 +6,7 @@ database:
   port: 5432
   user: "postgres"
   password: "password"
-  dbname: "payment_db"
+  dbname: "gopayments_db"
   sslmode: "disable"
 
 kafka:

@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 
-	handlers_models "go-payment-system/internal/handlers/models"
+	"go-payment-system/internal/api/models"
 	repository_models "go-payment-system/internal/repository/models"
 
 	"go-payment-system/internal/repository"
@@ -28,7 +28,7 @@ func NewTransactionService(repo repository.TransactionRepository, producer *kafk
 }
 
 // CreateTransaction handles transaction creation logic
-func (s *TransactionService) CreateTransfer(request *handlers_models.TransferRequest) (*handlers_models.TransferResponse, error) {
+func (s *TransactionService) CreateTransfer(request *models.TransferRequest) (*models.TransferResponse, error) {
 
 	transaction := repository_models.Transaction{
 		FromAccountID: request.FromAccountID,
@@ -56,7 +56,7 @@ func (s *TransactionService) CreateTransfer(request *handlers_models.TransferReq
 
 	logger.Log.Info("Transaction sent to Kafka: ", transaction.TransactionID)
 	
-	response := &handlers_models.TransferResponse{
+	response := &models.TransferResponse{
 		TransferID:   transaction.TransactionID,
 		FromAccountID: transaction.FromAccountID,
 		ToAccountID:   transaction.ToAccountID,
@@ -66,16 +66,4 @@ func (s *TransactionService) CreateTransfer(request *handlers_models.TransferReq
 	}
 
 	return response, nil
-}
-
-// ProcessTransaction processes a transaction event received from Kafka
-func (s *TransactionService) ProcessTransaction(transaction *repository_models.Transaction) error {
-	// Update transaction status in database
-	if err := s.repo.UpdateTransaction(transaction); err != nil {
-		logger.Log.Errorf("Failed to update transaction: %v", err)
-		return err
-	}
-
-	logger.Log.Infof("Processed transaction: %s", transaction.TransactionID)
-	return nil
 }

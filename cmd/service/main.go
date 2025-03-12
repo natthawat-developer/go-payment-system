@@ -5,10 +5,10 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 	"go-payment-system/config"
-	"go-payment-system/internal/handlers"
+	"go-payment-system/internal/api/handlers"
 	"go-payment-system/internal/repository"
-	"go-payment-system/internal/routes"
-	"go-payment-system/internal/services"
+	"go-payment-system/internal/api/routes"
+	"go-payment-system/internal/api/services"
 	"go-payment-system/pkg/database"
 	"go-payment-system/pkg/kafka"
 )
@@ -30,15 +30,6 @@ func main() {
 	}); err != nil {
 		log.Fatalf("Database connection failed: %v", err)
 	}
-
-	consumer, err := kafka.NewConsumer(&kafka.ConsumerConfig{
-		Brokers: config.Config.Kafka.Brokers[0],
-		GroupID: config.Config.Kafka.GroupID,
-	})
-	if err != nil {
-		log.Fatalf("Failed to create Kafka consumer: %v", err)
-	}
-	defer consumer.Close()
 
 	producerConfig := &kafka.ProducerConfig{
 		Brokers: config.Config.Kafka.Brokers[0],
